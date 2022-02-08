@@ -3,6 +3,7 @@ package com.jiho.board.springbootaws.web;
 import com.jiho.board.springbootaws.domain.posts.Posts;
 import com.jiho.board.springbootaws.domain.posts.PostsRepository;
 import com.jiho.board.springbootaws.web.dto.PostsSaveRequestDto;
+import com.jiho.board.springbootaws.web.dto.PostsUpdateRequestDto;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,5 +60,30 @@ public class PostsApiControllerTest {
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
         assertThat(all.get(0).getAuthor()).isEqualTo(author);
+    }
+
+    @Test
+    void Posts_수정된다() throws Exception {
+        Posts savedPosts = postsRepository
+                .save(Posts.builder().title("title").content("content").author("author").build());
+        Long updateId = savedPosts.getId();
+        String updatedTitle = "title-update";
+        String updatedContent = "content-update";
+
+        PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder().title(updatedTitle).content(updatedContent)
+                .build();
+
+        String url = "http://localhost:" + port + "/api/v1/posts/" + updateId;
+        HttpEntity<PostsUpdateRequestDto> reHttpEntity = new HttpEntity<>(requestDto);
+
+        ResponseEntity<Long> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, reHttpEntity, Long.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody()).isGreaterThan(0L);
+
+        List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo(updatedTitle);
+        assertThat(all.get(0).getContent()).isEqualTo(updatedContent);
+
     }
 }
