@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -84,6 +85,19 @@ public class PostsApiControllerTest {
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(updatedTitle);
         assertThat(all.get(0).getContent()).isEqualTo(updatedContent);
+
+    }
+
+    @Test
+    public void BaseTimeEntity_등록() {
+        LocalDateTime now = LocalDateTime.of(2022, 2, 8, 0, 0, 0);
+        postsRepository.save(Posts.builder().title("title").content("content").author("author").build());
+
+        List<Posts> postsList = postsRepository.findAll();
+
+        Posts posts = postsList.get(0);
+        assertThat(posts.getCreatedData()).isAfter(now);
+        assertThat(posts.getModifiedDate()).isAfter(now);
 
     }
 }
