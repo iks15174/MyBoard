@@ -4,9 +4,9 @@ import javax.transaction.Transactional;
 
 import com.jiho.board.springbootaws.domain.posts.Posts;
 import com.jiho.board.springbootaws.domain.posts.PostsRepository;
-import com.jiho.board.springbootaws.web.dto.PostsResponseDto;
-import com.jiho.board.springbootaws.web.dto.PostsSaveRequestDto;
-import com.jiho.board.springbootaws.web.dto.PostsUpdateRequestDto;
+import com.jiho.board.springbootaws.web.dto.posts.PostsResponseDto;
+import com.jiho.board.springbootaws.web.dto.posts.PostsSaveRequestDto;
+import com.jiho.board.springbootaws.web.dto.posts.PostsUpdateRequestDto;
 
 import org.springframework.stereotype.Service;
 

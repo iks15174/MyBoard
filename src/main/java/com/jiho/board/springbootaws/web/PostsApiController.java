@@ -1,9 +1,9 @@
 package com.jiho.board.springbootaws.web;
 
 import com.jiho.board.springbootaws.service.posts.PostsService;
-import com.jiho.board.springbootaws.web.dto.PostsResponseDto;
-import com.jiho.board.springbootaws.web.dto.PostsSaveRequestDto;
-import com.jiho.board.springbootaws.web.dto.PostsUpdateRequestDto;
+import com.jiho.board.springbootaws.web.dto.posts.PostsResponseDto;
+import com.jiho.board.springbootaws.web.dto.posts.PostsSaveRequestDto;
+import com.jiho.board.springbootaws.web.dto.posts.PostsUpdateRequestDto;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

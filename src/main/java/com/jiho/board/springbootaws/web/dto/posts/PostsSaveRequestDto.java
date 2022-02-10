@@ -1,4 +1,4 @@
-package com.jiho.board.springbootaws.web.dto;
+package com.jiho.board.springbootaws.web.dto.posts;
 
 import com.jiho.board.springbootaws.domain.posts.Posts;
 

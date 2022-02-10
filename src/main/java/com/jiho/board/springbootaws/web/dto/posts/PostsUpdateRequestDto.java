@@ -1,4 +1,4 @@
-package com.jiho.board.springbootaws.web.dto;
+package com.jiho.board.springbootaws.web.dto.posts;
 
 import lombok.Builder;
 import lombok.Getter;

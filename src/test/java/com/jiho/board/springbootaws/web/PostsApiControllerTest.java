@@ -2,8 +2,8 @@ package com.jiho.board.springbootaws.web;
 
 import com.jiho.board.springbootaws.domain.posts.Posts;
 import com.jiho.board.springbootaws.domain.posts.PostsRepository;
-import com.jiho.board.springbootaws.web.dto.PostsSaveRequestDto;
-import com.jiho.board.springbootaws.web.dto.PostsUpdateRequestDto;
+import com.jiho.board.springbootaws.web.dto.posts.PostsSaveRequestDto;
+import com.jiho.board.springbootaws.web.dto.posts.PostsUpdateRequestDto;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
