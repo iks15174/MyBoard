@@ -1,5 +1,8 @@
 package com.jiho.board.springbootaws.service.posts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import com.jiho.board.springbootaws.domain.posts.Posts;
@@ -20,6 +23,15 @@ public class PostsService {
     @Transactional
     public Long save(PostsSaveRequestDto requestDto) {
         return postsRepository.save(requestDto.toEntity()).getId();
+    }
+
+    @Transactional
+    public List<PostsResponseDto> getList() {
+        List<PostsResponseDto> responseDto = new ArrayList<>();
+        for (Posts posts : postsRepository.findAll()) {
+            responseDto.add(new PostsResponseDto(posts));
+        }
+        return responseDto;
     }
 
     @Transactional
