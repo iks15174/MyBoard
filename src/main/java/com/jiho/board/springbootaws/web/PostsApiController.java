@@ -1,5 +1,7 @@
 package com.jiho.board.springbootaws.web;
 
+import java.util.List;
+
 import com.jiho.board.springbootaws.service.posts.PostsService;
 import com.jiho.board.springbootaws.web.dto.posts.PostsResponseDto;
 import com.jiho.board.springbootaws.web.dto.posts.PostsSaveRequestDto;
@@ -22,6 +24,11 @@ public class PostsApiController {
     @PostMapping("/api/v1/posts")
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
         return postsService.save(requestDto);
+    }
+
+    @GetMapping("/api/v1/posts")
+    public List<PostsResponseDto> getList() {
+        return postsService.getList();
     }
 
     @GetMapping("/api/v1/posts/{id}")
