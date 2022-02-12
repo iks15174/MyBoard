@@ -1,8 +1,5 @@
 package com.jiho.board.springbootaws.service.posts;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import com.jiho.board.springbootaws.domain.posts.Posts;

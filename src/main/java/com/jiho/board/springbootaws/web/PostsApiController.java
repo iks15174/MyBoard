@@ -1,7 +1,5 @@
 package com.jiho.board.springbootaws.web;
 
-import java.util.List;
-
 import com.jiho.board.springbootaws.service.posts.PostsService;
 import com.jiho.board.springbootaws.web.dto.posts.PostsListResponseDto;
 import com.jiho.board.springbootaws.web.dto.posts.PostsResponseDto;
