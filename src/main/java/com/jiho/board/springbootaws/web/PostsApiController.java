@@ -3,10 +3,13 @@ package com.jiho.board.springbootaws.web;
 import java.util.List;
 
 import com.jiho.board.springbootaws.service.posts.PostsService;
+import com.jiho.board.springbootaws.web.dto.posts.PostsListResponseDto;
 import com.jiho.board.springbootaws.web.dto.posts.PostsResponseDto;
 import com.jiho.board.springbootaws.web.dto.posts.PostsSaveRequestDto;
 import com.jiho.board.springbootaws.web.dto.posts.PostsUpdateRequestDto;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +30,9 @@ public class PostsApiController {
     }
 
     @GetMapping("/api/v1/posts")
-    public List<PostsResponseDto> getList() {
-        return postsService.getList();
+    public PostsListResponseDto getList(
+            @PageableDefault(size = 10, sort = "id") Pageable pageable) {
+        return postsService.getList(pageable);
     }
 
     @GetMapping("/api/v1/posts/{id}")

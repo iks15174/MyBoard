@@ -7,10 +7,12 @@ import javax.transaction.Transactional;
 
 import com.jiho.board.springbootaws.domain.posts.Posts;
 import com.jiho.board.springbootaws.domain.posts.PostsRepository;
+import com.jiho.board.springbootaws.web.dto.posts.PostsListResponseDto;
 import com.jiho.board.springbootaws.web.dto.posts.PostsResponseDto;
 import com.jiho.board.springbootaws.web.dto.posts.PostsSaveRequestDto;
 import com.jiho.board.springbootaws.web.dto.posts.PostsUpdateRequestDto;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -26,12 +28,8 @@ public class PostsService {
     }
 
     @Transactional
-    public List<PostsResponseDto> getList() {
-        List<PostsResponseDto> responseDto = new ArrayList<>();
-        for (Posts posts : postsRepository.findAll()) {
-            responseDto.add(new PostsResponseDto(posts));
-        }
-        return responseDto;
+    public PostsListResponseDto getList(Pageable pageable) {
+        return new PostsListResponseDto(postsRepository.findAll(pageable));
     }
 
     @Transactional
