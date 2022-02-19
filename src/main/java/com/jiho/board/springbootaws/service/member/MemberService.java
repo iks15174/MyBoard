@@ -42,8 +42,8 @@ public class MemberService {
     public TokenDto login(LoginRequestDto requestDto) throws Exception {
         UsernamePasswordAuthenticationToken authenticationToken = requestDto.toAuthentication();
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        String email = ((AuthMemberDto) authentication.getPrincipal()).getUsername();
-        return jwtUtil.generateToken(email);
+        AuthMemberDto authMemberDto = (AuthMemberDto) authentication.getPrincipal();
+        return jwtUtil.generateToken(authMemberDto);
 
     }
 }
