@@ -67,7 +67,7 @@ public class JWTUtil {
                     claims.getSubject(),
                     "",
                     (String) claims.get(NAME_KEY),
-                    (Social) claims.get(SOCIAL_KEY),
+                    (Social) Social.valueOf((String) claims.get(SOCIAL_KEY)),
                     authorities);
             authentication = new UsernamePasswordAuthenticationToken(principal, "", authorities);
         } catch (Exception e) {
