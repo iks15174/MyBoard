@@ -25,7 +25,7 @@ public class MemberSaveRequestDto {
                 .password(passwordEncoder.encode(this.password)).social(this.social)
                 .build();
 
-        memberEntity.addMemberRole(MemberRole.ROLE_USER);
+        memberEntity.addMemberRole(MemberRole.USER);
         return memberEntity;
     }
 
