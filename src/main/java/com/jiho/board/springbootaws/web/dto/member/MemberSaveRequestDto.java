@@ -6,6 +6,8 @@ import com.jiho.board.springbootaws.domain.member.Social;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -13,6 +15,8 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
+@AllArgsConstructor
+@Builder
 public class MemberSaveRequestDto {
 
     private String email;
