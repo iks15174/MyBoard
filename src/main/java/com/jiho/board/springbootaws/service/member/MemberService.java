@@ -4,6 +4,8 @@ import javax.transaction.Transactional;
 
 import com.jiho.board.springbootaws.domain.member.Member;
 import com.jiho.board.springbootaws.domain.member.MemberRepository;
+import com.jiho.board.springbootaws.exception.exceptions.CustomBasicException;
+import com.jiho.board.springbootaws.exception.exceptions.ErrorCode;
 import com.jiho.board.springbootaws.service.member.dto.AuthMemberDto;
 import com.jiho.board.springbootaws.util.JWTUtil;
 import com.jiho.board.springbootaws.web.dto.member.LoginRequestDto;
@@ -29,9 +31,9 @@ public class MemberService {
     private final JWTUtil jwtUtil;
 
     @Transactional
-    public MemberResponseDto signup(MemberSaveRequestDto requestDto) {
+    public MemberResponseDto signup(MemberSaveRequestDto requestDto) throws CustomBasicException {
         if (memberRepository.existsByEmailAndSocial(requestDto.getEmail(), requestDto.getSocial())) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+            throw new CustomBasicException(ErrorCode.EMAIL_DUPLICATED_ERROR);
         }
 
         Member member = requestDto.toEntity(passwordEncoder);
