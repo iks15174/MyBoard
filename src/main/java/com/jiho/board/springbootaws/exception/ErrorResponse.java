@@ -19,4 +19,9 @@ public class ErrorResponse {
         this.code = code.getCode();
     }
 
+    public ErrorResponse(RuntimeException e, int status) {
+        this.message = e.getMessage();
+        this.status = status;
+    }
+
 }
