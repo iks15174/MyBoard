@@ -1,5 +1,8 @@
 package com.jiho.board.springbootaws.domain.member;
 
+import lombok.Getter;
+
+@Getter
 public enum MemberRole {
     USER(ROLES.USER, "유저권한"),
     ADMIN(ROLES.ADMIN, "어드민권한");
