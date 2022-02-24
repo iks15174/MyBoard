@@ -18,6 +18,8 @@ public class OAuth2Attribute {
         switch (provider.toLowerCase()) {
             case "google":
                 return ofGoogle(provider, attributes);
+            case "kakao":
+                return ofKakao(provider, attributes);
             default:
                 throw new RuntimeException();
         }
@@ -27,6 +29,17 @@ public class OAuth2Attribute {
         return OAuth2Attribute.builder()
                 .email((String) attributes.get("email"))
                 .name((String) attributes.get("name"))
+                .social((Social) Social.valueOf(provider))
+                .build();
+    }
+
+    public static OAuth2Attribute ofKakao(String provider, Map<String, Object> attributes) {
+        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+        Map<String, Object> kakaoProfile = (Map<String, Object>) kakaoAccount.get("profile");
+
+        return OAuth2Attribute.builder()
+                .email("kakao no email")
+                .name((String) kakaoProfile.get("nickname"))
                 .social((Social) Social.valueOf(provider))
                 .build();
     }
