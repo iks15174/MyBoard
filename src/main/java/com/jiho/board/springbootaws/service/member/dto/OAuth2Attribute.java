@@ -1,6 +1,7 @@
 package com.jiho.board.springbootaws.service.member.dto;
 
 import java.util.Map;
+import java.util.UUID;
 
 import com.jiho.board.springbootaws.domain.member.Social;
 
@@ -36,9 +37,8 @@ public class OAuth2Attribute {
     public static OAuth2Attribute ofKakao(String provider, Map<String, Object> attributes) {
         Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
         Map<String, Object> kakaoProfile = (Map<String, Object>) kakaoAccount.get("profile");
-
         return OAuth2Attribute.builder()
-                .email("kakaoTempEmail@temp.com")
+                .email((String) kakaoAccount.get("email"))
                 .name((String) kakaoProfile.get("nickname"))
                 .social((Social) Social.valueOf(provider))
                 .build();
