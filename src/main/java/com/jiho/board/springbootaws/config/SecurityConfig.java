@@ -1,6 +1,8 @@
 package com.jiho.board.springbootaws.config;
 
 import com.jiho.board.springbootaws.config.filter.JwtFilter;
+import com.jiho.board.springbootaws.config.handler.OAuth2SuccessHandler;
+import com.jiho.board.springbootaws.service.member.CustomOAuth2UserService;
 import com.jiho.board.springbootaws.util.JWTUtil;
 
 import org.springframework.context.annotation.Bean;
@@ -22,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JWTUtil jwtUtil;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -36,7 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/auth/**", "/h2-console/**", "/web-resources/**").permitAll()
                 .antMatchers("/api/v1/admin/**").hasRole("ADMIN")
                 .and()
-                .oauth2Login();
+                .oauth2Login()
+                .successHandler(oAuth2SuccessHandler);
 
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
