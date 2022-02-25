@@ -1,7 +1,6 @@
 package com.jiho.board.springbootaws.config.handler;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

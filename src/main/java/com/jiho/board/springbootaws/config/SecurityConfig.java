@@ -2,7 +2,6 @@ package com.jiho.board.springbootaws.config;
 
 import com.jiho.board.springbootaws.config.filter.JwtFilter;
 import com.jiho.board.springbootaws.config.handler.OAuth2SuccessHandler;
-import com.jiho.board.springbootaws.service.member.CustomOAuth2UserService;
 import com.jiho.board.springbootaws.util.JWTUtil;
 
 import org.springframework.context.annotation.Bean;

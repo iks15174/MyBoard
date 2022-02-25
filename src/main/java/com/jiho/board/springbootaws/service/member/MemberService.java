@@ -13,7 +13,6 @@ import com.jiho.board.springbootaws.web.dto.member.MemberResponseDto;
 import com.jiho.board.springbootaws.web.dto.member.MemberSaveRequestDto;
 import com.jiho.board.springbootaws.web.dto.member.TokenDto;
 
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
