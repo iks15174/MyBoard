@@ -38,7 +38,7 @@ public class OAuth2Attribute {
         Map<String, Object> kakaoProfile = (Map<String, Object>) kakaoAccount.get("profile");
 
         return OAuth2Attribute.builder()
-                .email("kakao no email")
+                .email("kakaoTempEmail@temp.com")
                 .name((String) kakaoProfile.get("nickname"))
                 .social((Social) Social.valueOf(provider))
                 .build();
