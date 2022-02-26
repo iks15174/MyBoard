@@ -1,5 +1,6 @@
 package com.jiho.board.springbootaws.web.dto.posts;
 
+import com.jiho.board.springbootaws.domain.member.Member;
 import com.jiho.board.springbootaws.domain.posts.Posts;
 
 import lombok.Builder;
@@ -11,13 +12,18 @@ import lombok.NoArgsConstructor;
 public class PostsSaveRequestDto {
     private String title;
     private String content;
-    private String author;
+    private Member author;
 
     @Builder
-    public PostsSaveRequestDto(String title, String content, String author) {
+    public PostsSaveRequestDto(String title, String content, Member author) {
         this.title = title;
         this.content = content;
         this.author = author;
+    }
+
+    public PostsSaveRequestDto addMember(Member author) {
+        this.author = author;
+        return this;
     }
 
     public Posts toEntity() {
