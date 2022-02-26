@@ -9,7 +9,8 @@ public enum ErrorCode {
     HANDLE_ACCESS_DENIED(403, "A004", "Access is Denied"),
 
     // Member
-    EMAIL_DUPLICATED_ERROR(400, "B001", " Duplicated user email");
+    EMAIL_DUPLICATED_ERROR(400, "B001", " Duplicated user email"),
+    UNEIXIST_USER(401, "B002", "Can't find user by Email and Social");
 
     private int status;
     private final String code;
