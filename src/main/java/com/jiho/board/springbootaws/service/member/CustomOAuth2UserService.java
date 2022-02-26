@@ -41,7 +41,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 member.getName(),
                 member.getSocial(),
                 member.getRoleSet().stream().map(
-                        role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList()),
+                        role -> new SimpleGrantedAuthority(role.getAuthority())).collect(Collectors.toList()),
                 oAuth2User.getAttributes());
 
         return authMemberDto;
