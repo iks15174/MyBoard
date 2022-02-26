@@ -1,12 +1,18 @@
 package com.jiho.board.springbootaws.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jiho.board.springbootaws.domain.member.MemberRepository;
+import com.jiho.board.springbootaws.domain.member.Social;
 import com.jiho.board.springbootaws.domain.posts.Posts;
 import com.jiho.board.springbootaws.domain.posts.PostsRepository;
+import com.jiho.board.springbootaws.util.security.WithMockCustomUser;
+import com.jiho.board.springbootaws.web.dto.member.MemberSaveRequestDto;
 import com.jiho.board.springbootaws.web.dto.posts.PostsSaveRequestDto;
 import com.jiho.board.springbootaws.web.dto.posts.PostsUpdateRequestDto;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +24,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -37,9 +43,6 @@ public class PostsApiControllerTest {
     private int port;
 
     @Autowired
-    private TestRestTemplate restTemplate; // JPA까지 한꺼번에 TEST 하기 위해 사용한다.
-
-    @Autowired
     private WebApplicationContext context;
 
     private MockMvc mvc;
@@ -47,9 +50,16 @@ public class PostsApiControllerTest {
     @Autowired
     private PostsRepository postsRepository;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @AfterEach
     public void tearDown() throws Exception {
         postsRepository.deleteAll();
+        memberRepository.deleteAll();
     }
 
     @BeforeEach
@@ -58,19 +68,24 @@ public class PostsApiControllerTest {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
+
+        memberRepository.save(MemberSaveRequestDto.builder()
+                .email("testUser@test.com")
+                .password("1234")
+                .name("testUser")
+                .social(Social.NoSocial).build()
+                .toEntity(passwordEncoder));
     }
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithMockCustomUser
     public void Posts_등록된다() throws Exception {
         String title = "title";
         String content = "content";
-        String author = "author";
 
         PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
                 .title(title)
                 .content(content)
-                .author(author)
                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/posts";
@@ -84,14 +99,13 @@ public class PostsApiControllerTest {
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
-        assertThat(all.get(0).getAuthor()).isEqualTo(author);
     }
 
     @Test
-    @WithMockUser(roles = "USER")
+    @WithMockCustomUser
     void Posts_수정된다() throws Exception {
         Posts savedPosts = postsRepository
-                .save(Posts.builder().title("title").content("content").author("author").build());
+                .save(Posts.builder().title("title").content("content").build());
         Long updateId = savedPosts.getId();
         String updatedTitle = "title-update";
         String updatedContent = "content-update";
@@ -118,7 +132,7 @@ public class PostsApiControllerTest {
     @Test
     public void BaseTimeEntity_등록() {
         LocalDateTime now = LocalDateTime.of(2022, 2, 8, 0, 0, 0);
-        postsRepository.save(Posts.builder().title("title").content("content").author("author").build());
+        postsRepository.save(Posts.builder().title("title").content("content").build());
 
         List<Posts> postsList = postsRepository.findAll();
 
