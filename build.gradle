@@ -4,6 +4,10 @@ plugins {
 	id 'java'
 }
 
+jar {
+    enabled = false
+}
+
 group = 'com.jiho.board'
 version = '0.0.1-SNAPSHOT'+new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = '11'
