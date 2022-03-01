@@ -87,6 +87,19 @@ public class PostsApiControllerTest {
         }
 
         @Test
+        public void Post_불러온다() throws Exception {
+                List<Posts> post = createPosts(1);
+                String url = "http://localhost:" + port + "/api/v1/posts/" + post.get(0).getId();
+
+                mvc.perform(get(url))
+                                .andExpect(status().isOk())
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(post.get(0).getId()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.title").value(post.get(0).getTitle()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.content").value(post.get(0).getContent()));
+
+        }
+
+        @Test
         public void PostsList_불러온다() throws Exception {
                 createPosts(11);
                 String url = "http://localhost:" + port + "/api/v1/posts";
