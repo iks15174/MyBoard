@@ -1,8 +1,11 @@
 package com.jiho.board.springbootaws.domain.member;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -10,8 +13,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.jiho.board.springbootaws.domain.BaseTimeEntity;
+import com.jiho.board.springbootaws.domain.comments.Comments;
+import com.jiho.board.springbootaws.domain.posts.Posts;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,6 +52,14 @@ public class Member extends BaseTimeEntity {
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Comments> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Posts> posts = new ArrayList<>();
 
     public void addMemberRole(MemberRole memberRole) {
         this.roleSet.add(memberRole);

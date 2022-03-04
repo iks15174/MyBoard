@@ -1,14 +1,21 @@
 package com.jiho.board.springbootaws.domain.posts;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.jiho.board.springbootaws.domain.BaseTimeEntity;
+import com.jiho.board.springbootaws.domain.comments.Comments;
 import com.jiho.board.springbootaws.domain.member.Member;
 
 import lombok.Builder;
@@ -32,6 +39,9 @@ public class Posts extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Member author;
+
+    @OneToMany(mappedBy = "posts", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Comments> comments = new ArrayList<>();
 
     @Builder
     public Posts(String title, String content, Member author) {
