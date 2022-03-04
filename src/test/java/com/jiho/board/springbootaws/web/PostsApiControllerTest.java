@@ -54,7 +54,7 @@ public class PostsApiControllerTest {
         private MemberRepository memberRepository;
 
         @Autowired
-        PasswordEncoder passwordEncoder;
+        private PasswordEncoder passwordEncoder;
 
         @AfterEach
         public void tearDown() throws Exception {
