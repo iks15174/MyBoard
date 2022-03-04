@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.jiho.board.springbootaws.domain.BaseTimeEntity;
+import com.jiho.board.springbootaws.domain.member.Member;
 import com.jiho.board.springbootaws.domain.posts.Posts;
 
 import lombok.Builder;
@@ -27,14 +28,16 @@ public class Comments extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    private String author;
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private Member author;
 
     @ManyToOne
-    @JoinColumn(name = "postsId")
+    @JoinColumn(name = "postId")
     private Posts posts;
 
     @Builder
-    public Comments(String content, String author, Posts posts) {
+    public Comments(String content, Member author, Posts posts) {
         this.content = content;
         this.author = author;
         this.posts = posts;
