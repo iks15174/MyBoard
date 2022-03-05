@@ -12,7 +12,7 @@ public class PageInfoDto {
     private int pageSize;
     private int page;
 
-    public PageInfoDto(Page<Posts> pagableEntity) {
+    public PageInfoDto(Page<?> pagableEntity) {
         this.totalPage = pagableEntity.getTotalPages();
         this.pageSize = pagableEntity.getSize();
         this.page = pagableEntity.getPageable().getPageNumber();
