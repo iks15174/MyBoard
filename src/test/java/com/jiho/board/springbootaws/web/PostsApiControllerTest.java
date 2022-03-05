@@ -166,7 +166,7 @@ public class PostsApiControllerTest {
                 List<Posts> postsList = postsRepository.findAll();
 
                 Posts posts = postsList.get(0);
-                assertThat(posts.getCreatedData()).isAfter(now);
+                assertThat(posts.getCreatedDate()).isAfter(now);
                 assertThat(posts.getModifiedDate()).isAfter(now);
 
         }
