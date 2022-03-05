@@ -13,7 +13,10 @@ public enum ErrorCode {
     UNEIXIST_USER(401, "B002", "Can't find user by Email and Social"),
 
     // Post
-    UNEIXIST_POST(401, "C002", "Can't find post by id");
+    UNEIXIST_POST(404, "C002", "Can't find post by id"),
+
+    // Comment
+    UNEIXIST_COMMENT(404, "C002", "Can't find comment by id");
 
     private int status;
     private final String code;
