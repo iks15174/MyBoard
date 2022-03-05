@@ -45,14 +45,14 @@ public class PostsService {
     @Transactional
     public PostsResponseDto findById(Long id) {
         Posts entity = postsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+                .orElseThrow(() -> new CustomBasicException(ErrorCode.UNEIXIST_POST));
         return new PostsResponseDto(entity);
     }
 
     @Transactional
     public Long update(Long id, PostsUpdateRequestDto requestDto) {
         Posts entity = postsRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+                .orElseThrow(() -> new CustomBasicException(ErrorCode.UNEIXIST_POST));
         entity.update(requestDto.getTitle(), requestDto.getContent());
         return id;
     }
