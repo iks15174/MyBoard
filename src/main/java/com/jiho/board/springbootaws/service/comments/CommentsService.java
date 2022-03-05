@@ -46,4 +46,11 @@ public class CommentsService {
         public CommentsListResponseDto getList(Long postsId, Pageable pageable) {
                 return new CommentsListResponseDto(commentsRepository.findByPosts_Id(postsId, pageable));
         }
+
+        @Transactional
+        public CommentsResponseDto findById(Long commentId) {
+                Comments entity = commentsRepository.findById(commentId)
+                                .orElseThrow(() -> new CustomBasicException(ErrorCode.UNEIXIST_COMMENT));
+                return new CommentsResponseDto(entity);
+        }
 }

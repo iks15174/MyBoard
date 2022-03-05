@@ -37,4 +37,9 @@ public class CommentsApiController {
         return commentsService.getList(postsId, pageable);
     }
 
+    @GetMapping("/api/v1/comments/{id}")
+    public CommentsResponseDto getCommentById(@PathVariable Long id) {
+        return commentsService.findById(id);
+    }
+
 }
