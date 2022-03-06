@@ -11,6 +11,15 @@ import com.jiho.board.springbootaws.domain.BaseTimeEntity;
 import com.jiho.board.springbootaws.domain.member.Member;
 import com.jiho.board.springbootaws.domain.posts.Posts;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Entity
 public class PostLike extends BaseTimeEntity {
 
