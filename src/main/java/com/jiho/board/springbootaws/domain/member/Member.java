@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 
 import com.jiho.board.springbootaws.domain.BaseTimeEntity;
 import com.jiho.board.springbootaws.domain.comments.Comments;
+import com.jiho.board.springbootaws.domain.postLike.PostLike;
 import com.jiho.board.springbootaws.domain.posts.Posts;
 
 import lombok.AllArgsConstructor;
@@ -60,6 +61,10 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Builder.Default
     private List<Posts> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<PostLike> likes = new ArrayList<>();
 
     public void addMemberRole(MemberRole memberRole) {
         this.roleSet.add(memberRole);

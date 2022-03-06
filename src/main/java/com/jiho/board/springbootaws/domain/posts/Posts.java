@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import com.jiho.board.springbootaws.domain.BaseTimeEntity;
 import com.jiho.board.springbootaws.domain.comments.Comments;
 import com.jiho.board.springbootaws.domain.member.Member;
+import com.jiho.board.springbootaws.domain.postLike.PostLike;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -42,6 +43,9 @@ public class Posts extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "posts", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comments> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "posts", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PostLike> likes = new ArrayList<>();
 
     @Builder
     public Posts(String title, String content, Member author) {
