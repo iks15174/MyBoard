@@ -14,6 +14,7 @@ import com.jiho.board.springbootaws.service.member.dto.AuthMemberDto;
 import com.jiho.board.springbootaws.web.dto.comments.CommentsListResponseDto;
 import com.jiho.board.springbootaws.web.dto.comments.CommentsResponseDto;
 import com.jiho.board.springbootaws.web.dto.comments.CommentsSaveRequestDto;
+import com.jiho.board.springbootaws.web.dto.comments.CommentsUpdateRequestDto;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,6 +52,14 @@ public class CommentsService {
         public CommentsResponseDto findById(Long commentId) {
                 Comments entity = commentsRepository.findById(commentId)
                                 .orElseThrow(() -> new CustomBasicException(ErrorCode.UNEIXIST_COMMENT));
+                return new CommentsResponseDto(entity);
+        }
+
+        @Transactional
+        public CommentsResponseDto update(Long commentId, CommentsUpdateRequestDto requestDto) {
+                Comments entity = commentsRepository.findById(commentId)
+                                .orElseThrow(() -> new CustomBasicException(ErrorCode.UNEIXIST_COMMENT));
+                entity.update(requestDto.getContent());
                 return new CommentsResponseDto(entity);
         }
 }
